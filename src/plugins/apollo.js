@@ -8,10 +8,13 @@ import { setContext } from "apollo-link-context";
 Vue.use(VueApollo);
 
 const authLink = setContext((opt, { headers }) => {
-  const token = localStorage.getItem("toke");
+  const token = localStorage.getItem("token");
+  console.log(token);
   return {
-    ...headers,
-    authorization: token ? `Bearer ${token}` : "",
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : "",
+    },
   };
 });
 
@@ -24,6 +27,7 @@ const cache = new InMemoryCache();
 const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
   cache,
+  connectToDevTools: true,
 });
 
 export default new VueApollo({
