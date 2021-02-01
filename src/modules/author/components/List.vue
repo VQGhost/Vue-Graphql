@@ -2,7 +2,7 @@
   <div>
     <h1 class="light-blue--text text-darken-3">Bienvenido a la seccion de authores</h1>
     <p class="font-italic light-blue--text text--accent-4">"Aqui podras gestionar a tus autores"</p>
-    <v-simple-table>
+    <v-simple-table v-if="authors.length > 0">
       <template v-slot>
         <thead>
           <tr>
@@ -12,12 +12,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
+          <tr v-for="author in authors" :key="author.id">
+            <td>{{author.name}}</td>
+            <td>{{author.country}}</td>
             <td>
               <v-row justify="center">
-                <v-btn fab small dark color="primary">
+                <v-btn :to="{ name : 'editauthor', params: { id: author.id }}" fab small dark color="primary">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </v-row>
@@ -42,7 +42,7 @@
             </v-container>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="red" @click="closeModal(false)">Cerrar</v-btn>
+            <v-btn color="red" dark @click="closeModal(false)">Cerrar</v-btn>
             <v-spacer />
             <v-btn color="blue darken-1" dark type="submit">Registrar</v-btn>
           </v-card-actions>
@@ -52,7 +52,48 @@
   </div>
 </template>
 <script>
+import { AUTHOR_GETALL, AUTHOR_CREATE } from "@/graphql/author"
 export default {
-  name : "List"
+  name : "List",
+  apollo: {
+    authors: {
+      query: AUTHOR_GETALL,
+      update: data => data.author
+    }
+  },
+  inject: ['state'],
+  data() {
+    return{
+      authors : [],
+      author: {
+        name : "",
+        country : "",
+        register_by : this.state.user.id
+      },
+      nameRules:[
+        (v) => !!v || "Nombre requerido"
+      ],
+      countryRules:[
+        (v) => !!v || "Pais requerido"
+      ]
+    }
+  },
+  methods:  {
+    createAuthor(closeModalAction){
+      if(this.$refs.createAuthorForm.validate()){
+        this.$apollo.mutate({
+          mutation: AUTHOR_CREATE,
+          variables: {
+            data : { ...this.author }
+          }
+        })
+        .then(() => {
+          this.$apollo.queries.authors.refetch()
+        })
+        this.$refs.createAuthorForm.reset()
+        closeModalAction(false)
+      }
+    }
+  }
 }
 </script>
