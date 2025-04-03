@@ -12,13 +12,13 @@
     "apollo-client": "^2.6.10",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
-    "core-js": "^3.33.1",
-    "graphql": "^16.8.1",
+    "core-js": "^3.41.0",
+    "graphql": "^15.10.1",
     "graphql-tag": "^2.12.6",
-    "vue": "^3.3.6",
-    "vue-apollo": "^3.1.1",
-    "vue-router": "^4.2.5",
-    "vuetify": "^3.3.22"
+    "vue": "^3.5.13",
+    "vue-apollo": "^3.1.2",
+    "vue-router": "^4.5.0",
+    "vuetify": "^3.8.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
@@ -26,12 +26,10 @@
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.52.0",
-    "eslint-plugin-vue": "^9.17.0",
-    "sass": "^1.69.4",
-    "sass-loader": "^13.3.2",
-    "vue-cli-plugin-vuetify": "^2.5.8",
-    "vue-template-compiler": "^2.7.15",
-    "vuetify-loader": "^1.9.2"
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^10.0.0",
+    "sass": "^1.86.2",
+    "sass-loader": "^16.0.5",
+    "vue-cli-plugin-vuetify": "^2.5.8"
   }
 }
